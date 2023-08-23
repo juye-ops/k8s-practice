@@ -7,10 +7,11 @@ spec:
   type: NodePort
   selector:
     app: msa
+    tier: frontend
   ports:
   - protocol: TCP
     port: 80
-    nodePort: 31001
+    nodePort: 31000
     targetPort: 3000
 --- 
 apiVersion: apps/v1
@@ -23,13 +24,15 @@ spec:
   selector:
     matchLabels:
       app: msa
+      tier: frontend
   template:
     metadata:
       labels:
         app: msa
+        tier: frontend
     spec:
       containers:
-      - name: msa
+      - name: react
         image: k8s-frontend-main
         imagePullPolicy: Never
         ports:
