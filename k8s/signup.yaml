@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-signup-service
+  namespace: msa
+spec:
+  selector:
+    app: msa
+    tier: signup
+  ports:
+  - name: fastapi
+    protocol: TCP
+    port: 5000
+    targetPort: 5000
+  - name: mongo
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
+
+--- # fastAPI
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signup-was-deploy
+  namespace: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msa
+      tier: signup
+  template:
+    metadata:
+      labels:
+        app: msa
+        tier: signup
+    spec:
+      containers:
+      - name: signup
+        image: k8s-backend-signup
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+
+--- # database
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signup-database-deploy
+  namespace: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msa
+      tier: signup
+  template:
+    metadata:
+      labels:
+        app: msa
+        tier: signup
+    spec:
+      containers:
+      - name: signup
+        image: mongo:4.0
+        ports:
+        - containerPort: 27017

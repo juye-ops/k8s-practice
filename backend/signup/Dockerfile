@@ -4,8 +4,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /root
 
-COPY ./requirements.txt /root/
+COPY . .
 
 RUN pip install -r requirements.txt
 
-WORKDIR /root/backend
+CMD [ "python3", "app.py"]
