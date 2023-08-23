@@ -16,14 +16,14 @@ function App() {
 
     const onClickRegisterButton = async () => {
         try {
-            const response = await fetch("http://backend/user/add", {
+            const response = await fetch("/user/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     id: registerInputs.registerId,
-                    pw: registerInputs.registerPw,
+                    password: registerInputs.registerPw,
                 })
             });
 
@@ -50,14 +50,14 @@ function App() {
 
     const onClickDataButton = async () => {
         try {
-            const response = await fetch("http://backend/data/add", {
+            const response = await fetch("/data/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    name: dataInputs.dataName,
-                    content: dataInputs.dataContent,
+                    title: dataInputs.dataName,
+                    desc: dataInputs.dataContent,
                 })
             });
 
@@ -74,7 +74,7 @@ function App() {
 
     const onClickDatacall = async () => {
         try {
-            const response = await fetch("http://backend/data/list", {
+            const response = await fetch("/data/list", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
