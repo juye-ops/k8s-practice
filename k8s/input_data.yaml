@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-data-service
+  namespace: msa
+spec:
+  selector:
+    app: msa
+    tier: data
+  ports:
+  - name: fastapi
+    protocol: TCP
+    port: 5000
+    targetPort: 5000
+  - name: redis
+    protocol: TCP
+    port: 6379
+    targetPort: 6379
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-was-deploy
+  namespace: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msa
+      tier: data
+  template:
+    metadata:
+      labels:
+        app: msa
+        tier: data
+    spec:
+      containers:
+      - name: data
+        image: k8s-backend-data
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+
+--- # database
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-database-deploy
+  namespace: msa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msa
+      tier: data
+  template:
+    metadata:
+      labels:
+        app: msa
+        tier: data
+    spec:
+      containers:
+      - name: signup
+        image: redis
+        ports:
+        - containerPort: 6379
