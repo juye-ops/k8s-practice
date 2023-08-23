@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: msa
+  name: msa
+  resourceVersion: "38452"
+  uid: 5cc76231-59af-40e0-aaa1-2d27f8d6fb17
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active
