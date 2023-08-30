@@ -1,6 +1,10 @@
 # k8s-practice
 Kubernetes를 이용한 마이크로 서비스 아키텍처 설계
 
+## Architecture
+![architecture](assets/k8s-practice-architecture.png)
+_k8s practice 아키텍처_
+
 ## 환경 구성(Minikube)
 ### 설치
 [minikube start](https://minikube.sigs.k8s.io/docs/start/)
